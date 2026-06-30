@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShopSpree</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-detail-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 40px;
+        }
+
+        .detail-icon {
+            font-size: 100px;
+            background: #f0f2f5;
+            padding: 50px;
+            border-radius: 12px;
+        }
+
+        .detail-info h1 {
+            margin-bottom: 15px;
+            color: #2a5298;
+        }
+
+        .detail-info p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .detail-price {
+            font-size: 2rem;
+            color: #e91e63;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">ShopSpree 🛒</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Products</a></li>
+            <li><a href="checkout.html" id="cart-btn">Cart</a></li>
+        </ul>
+    </nav>
+
+    <div class="product-detail-container" id="detail-box">
+        <h2>Loading product details...</h2>
+    </div>
+
+    <script>
+        async function loadProduct() {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/products');
+                const products = await response.json();
+                const product = products.find(p => p.id == productId);
+
+                if (product) {
+                    document.getElementById('detail-box').innerHTML = `
+                        <div class="detail-icon">${product.icon}</div>
+                        <div class="detail-info">
+                            <h1>${product.name}</h1>
+                            <p>This is a premium quality ${product.name} designed to give you the best experience. It is lightweight, durable, and highly recommended by our customers.</p>
+                            <div class="detail-price">₹${product.price}</div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">Add to Cart</button>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('detail-box').innerHTML = "<h2>Product not found</h2>";
+                }
+            } catch (error) {
+                console.error("Error loading product");
+            }
+        }
+        loadProduct();
+    </script>
+</body>
+
+</html>
