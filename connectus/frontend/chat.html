@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectUs - Live Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+
+<body class="chat-body">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>ConnectUs Room</h2>
+            <div>
+                <span id="user-display"></span>
+                <button class="leave-btn" style="background: #64748b; margin-right: 5px;" onclick="clearChat()">Clear
+                    Chat</button>
+                <button class="leave-btn" onclick="leaveChat()">Leave</button>
+            </div>
+        </div>
+
+        <div class="chat-box" id="message-container"></div>
+
+        <div class="chat-input-area">
+            <form id="send-container">
+                <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" id="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
